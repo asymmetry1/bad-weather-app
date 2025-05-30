@@ -10,7 +10,7 @@ Feel free to explore, but be aware that things are still very much in flux!
 
 ## About the project
 
-A simple react weather app using [OpenWeatherMap API](https://openweathermap.org/). It uses city/country for the Input.
+A simple react weather app using [OpenWeatherMap API](https://openweathermap.org/). It uses city/country for the Input. Made this because I'm bored to death.
 
 📌 To-Do
 
