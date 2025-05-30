@@ -1,1 +1,21 @@
 # bad-weather-app
+
+## 🚧 Currently in Debug/Development Phase 🚧
+
+This project is currently under active development and is in its early debug/development phase. It's highly experimental and not yet ready for production use or widespread adoption. Features may be incomplete, and breaking changes are likely.
+
+Feel free to explore, but be aware that things are still very much in flux!
+
+---
+
+## About the project
+
+A simple react weather app using [OpenWeatherMap API](https://openweathermap.org/). It uses city/country for the Input.
+
+📌 To-Do
+
+- [ ] Fix UI
+- [ ] Fix some layout
+- [ ] growing input
+- [ ] add more icon
+- [ ] maybe integrate AI for roast
