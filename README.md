@@ -14,7 +14,7 @@ A simple react weather app using [OpenWeatherMap API](https://openweathermap.org
 
 📌 To-Do
 
-- [ ] Fix UI
+- [ ] Fix Ugly UI
 - [ ] Fix some layout
 - [ ] growing input
 - [ ] add more icon
