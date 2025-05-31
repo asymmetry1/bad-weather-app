@@ -15,8 +15,11 @@ A simple react weather app using [OpenWeatherMap API](https://openweathermap.org
 📌 To-Do
 
 - [ ] Fix Ugly UI
-- [ ] Fix some layout
-- [ ] Growing input
+    - [ ] Input border change on click
+    - [ ] Input border change on maxLength
+- [X] Fix some layout
+- [X] Set max input
+- [X] Growing input
 - [ ] Detect Location
 - [ ] Add more icon
 - [ ] Maybe integrate AI for roast

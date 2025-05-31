@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, use } from 'react'
 import './App.css'
 
 function App() {
-  const [weather, setWeather] = useState(null)
-  const [city, setCity] = useState('Tokyo') //Default
-  const [inputValue, SetInputValue] = useState(city)
+  const inputRef = useRef(null);
+  const [weather, setWeather] = useState(null);
+  const [city, setCity] = useState('Tokyo'); //Later implemetn location tracking
+  const [inputValue, SetInputValue] = useState(city);
 
   const getWeatherMood = (weatherData) => {
   if (!weatherData) return "Waiting for weather data...";
@@ -14,7 +15,7 @@ function App() {
 
   const moods = {
     Rain: "Better grab an umbrella ☔",
-    Clouds: "Gloomy skies ahead ☁️",
+    Clouds: "Gloomy skies ahead, just like your poor life ☁️",
     Clear: "Perfect sunglasses weather 😎",
     Snow: "Winter wonderland! ❄️",
     Thunderstorm: "Thor is angry today ⚡",
@@ -24,9 +25,8 @@ function App() {
   return moods[main] || moods.default;
   };
 
-  
   useEffect(() => {
-  fetch(`http://localhost:3001/api/weather?city=${city}`)
+  fetch(`/api/weather?city=${city}`)
     .then(res => {
       if (!res.ok) {
         throw new Error(
@@ -48,6 +48,13 @@ function App() {
     });
   }, [city]);
 
+  useEffect(() => {
+    if (inputRef.current) {
+      const estimatedWidth = Math.max(inputValue.length * 12 + 10, 50);
+      inputRef.current.style.width = `${estimatedWidth}px`;
+    }
+  }, [inputValue]);
+
   const handleInputChange = (e) => {
   SetInputValue(e.target.value);
   };
@@ -68,12 +75,12 @@ function App() {
         <h3>Bad Weather App</h3>
         <span>Your Mom API -- I'm debugging, ✨fuck aesthetic✨</span>
       </div>
-      <div className='weather-container'>
-        <div className='weather-info'>
+       <div className='weather-info'>
           <h3>Currently, You are in</h3>
-          <input value={inputValue} onChange={handleInputChange} onKeyDown={handleKeyDown}/>
+          <input value={inputValue} onChange={handleInputChange} onKeyDown={handleKeyDown} ref={inputRef} maxLength={20}/>
           {weather && <h3>It's {weather.weather[0].description}</h3>}
         </div>
+      <div className='weather-container'>
         <div className='wrap-me'>
           <div className='weather-main'>
             <div className='mitem'>
@@ -89,6 +96,9 @@ function App() {
           <div className='weather-right'>
             <div className='ritem'>
              <p>Wind: {Math.round(weather.wind.speed)} mph</p>
+            </div>
+            <div className='ritem'>
+             <p>Wind Degree: {weather.wind.deg}°</p>
             </div>
             <div className='ritem'>
              <p>Humidity: {weather.main.humidity}%</p>

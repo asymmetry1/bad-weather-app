@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
   max-width: 60rem;
-  min-width: 20rem;
+  min-width: 35rem;
   width: auto;
   min-height: 40vh;
   background-color: black;
@@ -43,12 +43,13 @@
   gap: 0.5rem;
   flex-wrap: nowrap;
   min-width: 100%;
-}
+  max-width: 40rem;
+} 
 
 .weather-info h3 {
   display: inline-flex;
   min-width: 20%;
-}
+} 
 
 .weather-info input {
   display: flex;
@@ -58,13 +59,14 @@
   text-align: center;
   border-bottom: 2px solid white;
   background: transparent;
-  max-width: 300px;
+  transition: width 0.3s ease;
+  outline: none;
 }
 
 .wrap-me {
   display: flex;
   flex-direction: row;
-  height: 10rem;
+  height: 15rem;
 }
 
 .weather-main {
@@ -79,12 +81,16 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  border: 1px solid white; 
+  border: 1px solid white;
 }
 
 .mitem p {
-  font-size: 3rem;
+  font-size: 5rem;
   font-weight: 600;
+}
+
+.mitem img {
+  width: 8rem;;
 }
 
 
@@ -97,7 +103,7 @@
 }
 
 .ritem {
-  height: 3.2rem;
+  height: 3.7rem;
   justify-content: center;
   align-items: center;  
   border: 1px solid white; 
@@ -107,7 +113,9 @@
   display: flex;
   flex: 1;
   justify-content: center;
-  background-color: cadetblue;
+  background-color:cadetblue;
+  color: black;
+  font-weight:bolder;
 }
 
 
