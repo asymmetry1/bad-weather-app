@@ -4,6 +4,7 @@ import './App.css'
 function App() {
   const inputRef = useRef(null);
   const [weather, setWeather] = useState(null);
+  const [error, setError] = useState(null); //err handler
   const [city, setCity] = useState('Tokyo'); //Later implemetn location tracking
   const [inputValue, SetInputValue] = useState(city);
 
@@ -13,6 +14,7 @@ function App() {
   const { main, description } = weatherData.weather[0];
   const { temp } = weatherData.main;
 
+  //Static HardCoded Moods
   const moods = {
     Rain: "Better grab an umbrella ☔",
     Clouds: "Gloomy skies ahead, just like your poor life ☁️",
@@ -25,6 +27,54 @@ function App() {
   return moods[main] || moods.default;
   };
 
+  //Detect Location after loading
+  window.addEventListener('load', function() {
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0,
+    };
+
+    function success(pos) {
+      const crd = pos.coords;
+      //send to backend (fetch) below is just debugging purpose
+      console.log("Your current position is:");
+      console.log(`Latitude : ${crd.latitude}`);
+      console.log(`Longitude: ${crd.longitude}`);
+      console.log(`More or less ${crd.accuracy} meters.`);
+      
+      //actual fetching test
+      fetch(`/api/weather/geo?lat=${crd.latitude}&lon=${crd.longitude}`)
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(
+              res.status === 404
+              ? "Can't detect your thingy" : "service unavailable"
+            );
+          }
+          return res.json();
+        })
+        .then(data => {
+          if (data && data.length > 0) {
+            SetInputValue(data[0].name),
+            setCity(inputValue);
+          } else {
+            throw new Error("No location found for these coordinates")
+          }
+        })
+        .catch(err => {
+          console.error("Fetch error:", err)
+        });
+    }
+
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+  })
+
+  //Fetch Location from INput
   useEffect(() => {
   fetch(`/api/weather?city=${city}`)
     .then(res => {
@@ -39,15 +89,16 @@ function App() {
     })
     .then(data => {
       setWeather(data);
-      setError(null); // Clear any previous errors
+      setError(null);
     })
     .catch(err => {
-      setError(err.message); // Display user-friendly error
-      setWeather(null); // Clear stale weather data
+      setError(err.message);
+      setWeather(null);
       console.error("API Error:", err);
     });
   }, [city]);
 
+  //Dynamic input bar
   useEffect(() => {
     if (inputRef.current) {
       const estimatedWidth = Math.max(inputValue.length * 12 + 10, 50);
@@ -115,6 +166,7 @@ function App() {
       </div>
       <div className='footer'>
         <p>this is footer, u hab foot fetish?  ̶m̶e̶e̶ ̶t̶o̶o̶ | @asymmetry1</p>
+        <p>hidden component</p>
       </div>
     </div>
   )

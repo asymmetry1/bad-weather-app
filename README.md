@@ -17,9 +17,13 @@ A simple react weather app using [OpenWeatherMap API](https://openweathermap.org
 - [ ] Fix Ugly UI
     - [ ] Input border change on click
     - [ ] Input border change on maxLength
-- [X] Fix some layout
-- [X] Set max input
-- [X] Growing input
-- [ ] Detect Location
-- [ ] Add more icon
+    - [ ] Add more icon
+    - [X] Fix some layout
+    - [X] Set max input
+    - [X] Growing input
+- [X] Detect Location (lat, long)
+    - [X] Now push it to backend, make get response to API
+    - [x] fetch in frontend link to setCity
+    - [ ] make loading using useref(?) when user decide to use geo location.
 - [ ] Maybe integrate AI for roast
+- [ ] Need to make a good error handler.
